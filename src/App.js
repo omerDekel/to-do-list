@@ -6,16 +6,19 @@ import AddNewToDoInput from "./components/AddNewToDoInput/AddNewToDoInput";
 import { CONSTANTS } from "./constants/Constants";
 
 const App = () => {
-  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos")));
+  const [todos, setTodos] = useState(
+    JSON.parse(localStorage.getItem("todos"))
+      ? JSON.parse(localStorage.getItem("todos"))
+      : []
+  );
 
   useEffect(() => {
-    console.log(todos);
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   const addTodo = (todoText) => {
     const newTodo = {
-      id: todos.length + 1,
+      id: todos?.length + 1,
       text: todoText,
       completed: false,
     };
@@ -23,12 +26,17 @@ const App = () => {
   };
 
   const deleteTodo = (todoId) => {
-    setTodos(todos.filter((td) => td.id !== todoId));
+    let newToDos = todos.filter((td) => td.id !== todoId);
+    //Resetting the IDs following deletion
+    for (let i = 0; i < newToDos.length; i++) {
+      newToDos[i].id = i;
+    }
+    setTodos(newToDos);
   };
 
   const toggleTodoCompletion = (id) => {
     setTodos(
-      todos.map((todo) =>
+      todos?.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
@@ -52,7 +60,7 @@ const App = () => {
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
-          {todos.map((toDo, i) => (
+          {todos?.map((toDo, i) => (
             <ListItem key={i}>
               <ToDoItem
                 todo={toDo}

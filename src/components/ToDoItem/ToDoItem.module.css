@@ -8,7 +8,7 @@
 
 .ToDoItemText {
     font-size: 52px !important;
-    font-family: cursive;
+    width: max-content;
     /* border: 1px solid blue; */
 }
 
