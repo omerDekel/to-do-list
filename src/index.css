@@ -11,3 +11,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+:root {
+  /* SIZES */
+  --drawerWidth: 100px;
+  --appBarHeight: 80px;
+
+  /* COLORS */
+  --black: rgb(0, 0, 0);
+  --white: rgb(255, 255, 255);
+  --greyishBrown: rgb(74, 74, 74);
+  --transparent: transparent;
+  --defaultSelectedTableRowBackground: rgba(25, 118, 210, 0.08);
+  --errorRed: rgb(211, 47, 47);
+  --green: rgb(0, 128, 0);
+  --handlingUnitSquareSlotGreen: rgb(171, 205, 73);
+  --utronMainColor: rgb(139, 3, 4);
+  --orangeyYellow: rgb(255, 204, 8);
+  --orangeyYellowFaded: rgb(255, 204, 8, 0.3);
+  --appBarDarkerGray: rgb(225, 225, 225);
+  --appBarLighterGray: rgb(248, 248, 248);
+  --tableBorderGray: rgb(225, 225, 225);
+  --tableScrollbarGray: rgb(220, 220, 220);
+  --searchBarGray: rgb(225, 225, 225);
+  --deletedRowGray: rgb(230, 230, 230);
+  --buttonDisabledGray: rgb(215, 215, 215);
+  --buttonDisabledDarkerGray: rgb(200, 200, 200);
+  --muiButtonLabelcolor: rgb(25, 118, 210);
+  /* FONTS */
+  --heeboThin: 'Heebo-Thin';
+  --heeboLight: 'Heebo-Light';
+  --heeboRegular: 'Heebo-Regular';
+  --heeboMedium: 'Heebo-Medium';
+  --heeboBold: 'Heebo-Bold';
+  --heeboBlack: 'Heebo-Black';
+}

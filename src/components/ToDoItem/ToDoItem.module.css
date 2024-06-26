@@ -1,0 +1,17 @@
+.ToDoItemContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.ToDoItemText {
+    font-size: 52px !important;
+    font-family: cursive;
+    /* border: 1px solid blue; */
+}
+
+.IsDone{
+    text-decoration-line: line-through;
+}

@@ -1,0 +1,8 @@
+.AddNewToDoInputContainer {
+  display: flex;
+  /* flex-direction: row;
+  /* border: 1px solid red; */
+  /*align-items: center;
+  justify-content: space-evenly;
+  width: 100%; */
+}
