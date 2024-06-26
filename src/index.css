@@ -12,10 +12,6 @@ code {
     monospace;
 }
 :root {
-  /* SIZES */
-  --drawerWidth: 100px;
-  --appBarHeight: 80px;
-
   /* COLORS */
   --black: rgb(0, 0, 0);
   --white: rgb(255, 255, 255);
