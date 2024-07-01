@@ -14,6 +14,13 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
+    const interval = setInterval(() => {
+      console.log('hi!');
+    },10000);
+    return () =>{ clearInterval(interval);
+      console.log('stop!');
+    }
+    ;
   }, [todos]);
 
   const addTodo = (todoText) => {
