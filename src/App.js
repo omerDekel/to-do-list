@@ -1,79 +1,83 @@
-import { Box, List, ListItem, Typography } from "@mui/material";
+import { Box, Button, List, ListItem, Typography } from "@mui/material";
 import classes from "./App.module.css";
-import ToDoItem from "./components/ToDoItem/ToDoItem";
+import TaskItem from "./components/TaskItem/TaskItem";
 import { useEffect, useState } from "react";
-import AddNewToDoInput from "./components/AddNewToDoInput/AddNewToDoInput";
 import { CONSTANTS } from "./constants/Constants";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTask, fetchTasks } from "./managers/redux/reducers/TasksReducer";
+import TaskModal from "./components/Modals/TaskModal/TaskModal";
+import AddIcon from "@mui/icons-material/Add";
 
 const App = () => {
-  const [todos, setTodos] = useState(
-    JSON.parse(localStorage.getItem("todos"))
-      ? JSON.parse(localStorage.getItem("todos"))
-      : []
-  );
-
+  const dispatch = useDispatch();
+  const { tasks, loading, error } = useSelector((state) => state.tasks);
+  const [todos, setTodos] = useState([]);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-    const interval = setInterval(() => {
-      console.log('hi!');
-    },10000);
-    return () =>{ clearInterval(interval);
-      console.log('stop!');
-    }
-    ;
-  }, [todos]);
+    dispatch(fetchTasks());
+  }, [dispatch]);
 
-  const addTodo = (todoText) => {
-    const newTodo = {
-      id: todos?.length + 1,
-      text: todoText,
-      completed: false,
-    };
-    setTodos([...todos, newTodo]);
+  const deleteTodo = (id) => {
+    dispatch(deleteTask(id));
   };
 
-  const deleteTodo = (todoId) => {
-    let newToDos = todos.filter((td) => td.id !== todoId);
-    //Resetting the IDs following deletion
-    for (let i = 0; i < newToDos.length; i++) {
-      newToDos[i].id = i;
-    }
-    setTodos(newToDos);
-  };
+  const onClickTask = (task) => {
+    console.log(task);
+    setSelectedTask(task);
+    setOpenEditModal(true);
+  }
 
   const toggleTodoCompletion = (id) => {
     setTodos(
       todos?.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
       )
     );
   };
+  if (loading) {
+    return <Typography>Loading...</Typography>;
+  }
 
+  if (error) {
+    return (
+      <Box>
+        <Typography>Error: {error}</Typography>
+        <Button onClick={() => dispatch(fetchTasks())}>Retry</Button>
+      </Box>
+    );
+  }
   return (
     <Box className={classes.ToDoListScreenContainer}>
+      <TaskModal task={selectedTask} titleText={CONSTANTS.STRINGS.EDIT_HEADER} open={openEditModal} onClose={() => setOpenEditModal(false)}></TaskModal>
+      <TaskModal titleText={CONSTANTS.STRINGS.ADD_NEW_TO_DO_LABEL} open={openAddModal} onClose={() => setOpenAddModal(false)}></TaskModal>
       <Box className={classes.AppHeader}>
         <Typography variant="h1" component="h2" fontFamily="cursive">
           {CONSTANTS.STRINGS.MAIN_HEADER}
         </Typography>
       </Box>
       <Box className={classes.AddNewToDoInput}>
-        <AddNewToDoInput
-          label={CONSTANTS.STRINGS.ADD_NEW_TO_DO_LABEL}
-          textFieldLabel={CONSTANTS.STRINGS.ADD_NEW_TO_DO_LABEL}
-          addTodo={addTodo}
-        />
+        <Button
+          variant={"outlined"}
+          onClick={() => setOpenAddModal(true)}
+          startIcon={<AddIcon />}
+        >
+          {CONSTANTS.STRINGS.ADD_NEW_TO_DO_LABEL}
+        </Button>
       </Box>
       <Box className={classes.ToDoList}>
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
-          {todos?.map((toDo, i) => (
+          {tasks?.map((curTask, i) => (
             <ListItem key={i}>
-              <ToDoItem
-                todo={toDo}
+              <TaskItem
+                task={curTask}
+                onClickTask={() => onClickTask(curTask)}
                 deleteTodo={deleteTodo}
                 toggleTodoCompletion={toggleTodoCompletion}
-              ></ToDoItem>
+              ></TaskItem>
             </ListItem>
           ))}
         </List>

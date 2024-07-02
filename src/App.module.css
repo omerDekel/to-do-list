@@ -21,17 +21,10 @@
 .AddNewToDoInput {
   display: flex;
   flex-direction: row;
-  /* border: 1px solid red; */
+  /* border: 1px solid black; */
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
-}
-
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .AppHeader {
