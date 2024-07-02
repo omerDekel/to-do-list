@@ -4,8 +4,11 @@ const STRINGS = {
   ADD_NEW_TO_DO_LABEL: "Enter new task",
   TITLE_LABEL:"Title",
   DESCRIPTION_LABEL:"Description",
-  PERFORM_LABEL:"Submit",
-  CLOSE_LABEL:"Close"
+  FINISH_DATE:"Performed At",
+  PERFORM_LABEL:"OK",
+  CLOSE_LABEL:"Close",
+  LOADING_TITLE:"Loading...",
+  ERROR_TITLE:"Error"
 };
 
 export const CONSTANTS = {

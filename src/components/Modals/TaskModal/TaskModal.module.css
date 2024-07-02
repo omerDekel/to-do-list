@@ -1,25 +1,20 @@
-.CustomModalContainer {
+.ModalContainer {
     width: 99%;
     height: 450px;
     display: flex;
     overflow: hidden;
-    /* border: 1px solid red; */
     flex-wrap: nowrap;
     justify-content: flex-start;
     flex-direction: column;
 }
 
-.CustomModalHeaderContainer {
+.ModalHeaderContainer {
     width: 100%;
     height:fit-content;
-    /* background-color: orange; */
-    /* height: 50%; */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    /* border: 1px solid red; */
-    /* border: 1px solid blue; */
 }
 
 
@@ -29,21 +24,7 @@
     font-size: 18px !important;
 }
 
-.CustomModalHeaderContainer.Right {
-    direction: rtl;
-}
-
-.CustomModalHeaderContainer.Left {
-    direction: ltr;
-}
-.CustomModalHeaderExitIconContainer {
-    top: 5px;
-    right: 5px;
-    position: absolute;
-    /* border: 1px solid black; */
-}
-
-.CustomModalContentContainer {
+.ModalContentContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -54,79 +35,18 @@
     align-items: flex-start;
 }
 
-.CustomModalContentTitleContainer {
-    /* height: 50%; */
+.ModalContentTitleContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    /* border: 1px solid red; */
 }
 
-.CustomModalContentTitleContainer.Right {
-    direction: rtl;
-}
-
-.CustomModalContentTitleContainer.Left {
-    direction: ltr;
-}
-
-.CustomModalContentTitleText {
-    font-size: 16px !important;
-    color: var(--black) !important;
-    font-family: var(--heeboBold) !important;
-}
-
-.CustomModalContentDescriptionContainer {
-    /* height: 50%; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding-top: 20px !important;
-    /* border: 1px solid black;  */
-}
-
-.CustomModalContentDescriptionContainer.Right {
-    direction: rtl;
-}
-
-.CustomModalContentDescriptionContainer.Left {
-    direction: ltr;
-}
-
-.CustomModalContentDescriptionText {
-    font-size: 14px !important;
-    color: var(--black) !important;
-    font-family: var(--heeboRegular) !important;
-    /* border: 1px solid blue; */
-}
-
-.CustomModalActionsContainer {
+.ModalActionsContainer {
     width: 100%;
     height: 20%;
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: space-evenly !important;
-    /* border: 1px solid purple; */
-}
-
-.CustomModalActionsBtn1Container {
-    display: flex;
-    /* border: 1px solid red; */
-}
-
-.CustomModalActionsBtn2Container {
-    display: flex;
-    /* border: 1px solid red; */
-}
-
-.EllipseInput {
-    display: flex;
-    flex-direction: row;
-    height: 30px;
-    margin-top: 5%;
-    /* border: 1px solid red; */
-    justify-content: flex-end;
 }

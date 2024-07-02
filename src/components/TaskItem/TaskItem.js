@@ -1,9 +1,9 @@
 import { Box, Button, Checkbox, Typography } from "@mui/material";
 import classes from "./TaskItem.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-const TaskItem = ({task, toggleTodoCompletion, deleteTodo,onClickTask}) => {
+const TaskItem = ({ task, toggleTodoCompletion, deleteTask, onClickTask }) => {
   return (
     <Box
       className={`${classes.ToDoItemContainer} ${
@@ -14,16 +14,13 @@ const TaskItem = ({task, toggleTodoCompletion, deleteTodo,onClickTask}) => {
         checked={task.isDone}
         onClick={() => toggleTodoCompletion(task.id)}
       />
-      <Button onClick={()=> onClickTask(task)}>
-      <Typography
-        className={classes.ToDoItemText}
-      >
-        {task.title}
-      </Typography></Button>
+      <Button onClick={() => onClickTask(task)}>
+        <Typography className={classes.ToDoItemText}>{task.title}</Typography>
+      </Button>
       <Button
         variant="standard"
         startIcon={<DeleteIcon />}
-        onClick={() => deleteTodo(task.id)}
+        onClick={() => deleteTask(task.id)}
       ></Button>
     </Box>
   );
@@ -36,8 +33,8 @@ TaskItem.propTypes = {
     isDone: PropTypes.bool.isRequired,
   }).isRequired,
   toggleTodoCompletion: PropTypes.func.isRequired,
-  deleteTodo:PropTypes.func.isRequired,
-  onClickTask: PropTypes.func.isRequired
+  deleteTask: PropTypes.func.isRequired,
+  onClickTask: PropTypes.func.isRequired,
 };
 
 export default TaskItem;

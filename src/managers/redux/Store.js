@@ -1,18 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import TasksReducer, { tasksActions } from './reducers/TasksReducer';
-
-export const resetStore = () => {
-  store.dispatch(tasksActions.reset());
-};
+import tasksReducer from './slices/tasksSlice';
 
 const store = configureStore({
   reducer: {
-    tasks: TasksReducer,
+    tasks: tasksReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false
-    })
 });
 
 export default store;

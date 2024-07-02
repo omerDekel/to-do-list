@@ -1,20 +1,21 @@
 import { REDUCERS_NAMES } from "../../../enums/ClientEnums";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  axiosAddNewTask,
   axiosDeleteTask,
   axiosGetTasks,
   axiosUpdateTask,
 } from "../../axios/AxiosManager";
 
 const initialState = { tasks: [], loading: false, error: null };
-// Define async thunks for API calls
+// async thunks for API calls
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
   const response = await axiosGetTasks();
   return response.data;
 });
 
 export const addTask = createAsyncThunk("tasks/addTask", async (task) => {
-  const response = await axiosGetTasks(task);
+  const response = await axiosAddNewTask(task);
   return response.data;
 });
 
@@ -28,10 +29,10 @@ export const deleteTask = createAsyncThunk("tasks/deleteTask", async (id) => {
   return id;
 });
 
-const slice = createSlice({
+const tasksSlice = createSlice({
   name: REDUCERS_NAMES.TASKS,
   initialState: initialState,
-  reducers: { reset: () => initialState },
+  reducers: { },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTasks.pending, (state) => {
@@ -90,6 +91,4 @@ const slice = createSlice({
   },
 });
 
-export const tasksActions = slice.actions;
-
-export default slice.reducer;
+export default tasksSlice.reducer;

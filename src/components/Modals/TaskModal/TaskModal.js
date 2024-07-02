@@ -15,19 +15,16 @@ import { CONSTANTS } from "../../../constants/Constants";
 import { useDispatch } from "react-redux";
 import { TASK_MODAL_FORMS } from "../../../enums/ClientEnums";
 import { TaskEntity } from "../../../entities/TaskEntity";
-import {
-  addTask,
-  updateTask,
-} from "../../../managers/redux/reducers/TasksReducer";
+import { addTask, updateTask } from "../../../managers/redux/slices/tasksSlice";
 
 const TaskModal = (props) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   useEffect(() => {
-    if(props.task?.title){
+    if (props.task?.title) {
       setTitle(props.task.title);
     }
-    if(props.task?.description){
+    if (props.task?.description) {
       setDescription(props.task.description);
     }
   }, [props]);
@@ -39,27 +36,35 @@ const TaskModal = (props) => {
     task.title = title;
     task.isDone = false;
     //validating title
-    if (task?.title.trim()) {
+    if (title.trim()) {
       if (props.formId === TASK_MODAL_FORMS.ADD) {
+        task.id = 0;
+        task.finishDate = null;
         dispatch(addTask(task));
         setTitle("");
         setDescription("");
       } else {
-        task.id = props.task?.id;
-        task.isDone = props.task?.isDone;
-        task.finishDate = props.task?.finishDate;
-        dispatch(updateTask(task));
-      } 
+        //if there was any change in task
+        if (
+          props.task?.description !== description ||
+          props.task?.title !== title
+        ) {
+          task.id = props.task?.id;
+          task.isDone = props.task?.isDone;
+          task.finishDate = props.task?.finishDate;
+          dispatch(updateTask(task));
+        }
+      }
       props.onClose();
     }
   };
 
   return (
     <Dialog open={props.open} width="450px" height="250px">
-      <Box className={classes.CustomModalContainer}>
+      <Box className={classes.ModalContainer}>
         <DialogTitle>{props.titleText} </DialogTitle>
-        <DialogContent className={classes.CustomModalContentContainer}>
-          <Box className={classes.EditContentModalContentContainer}>
+        <DialogContent className={classes.ModalContentContainer}>
+          <Box>
             <TextField
               variant={"outlined"}
               type={"text"}
@@ -70,7 +75,7 @@ const TaskModal = (props) => {
               }}
             />
           </Box>
-          <Box className={classes.EditContentModalContentContainer}>
+          <Box>
             <TextField
               id="filled-multiline-static"
               disabled={false}
@@ -84,16 +89,31 @@ const TaskModal = (props) => {
               }}
             />
           </Box>
+          {props.task?.finishDate && <Box>
+
+            <TextField
+              disabled={true}
+              variant={"standard"}
+              // type={"date"}
+              defaultValue={props.task?.finishDate}
+              value={props.task?.finishDate}
+              label={CONSTANTS.STRINGS.FINISH_DATE}
+              onChange={(event) => {
+                setTitle(event.target.value);
+              }}
+            />
+          </Box>}
         </DialogContent>
-        <DialogActions className={classes.CustomModalActionsContainer}>
+        <DialogActions className={classes.ModalActionsContainer}>
           <DialogActions>
-            <Button onClick={()=>props.onClose()}>
+            <Button onClick={() => props.onClose()} variant={"outlined"}>
               {CONSTANTS.STRINGS.CLOSE_LABEL}
             </Button>
             <Button
               type="submit"
               disabled={!title?.trim()}
               onClick={handleSubmit}
+              variant={"outlined"}
             >
               {CONSTANTS.STRINGS.PERFORM_LABEL}
             </Button>
@@ -106,15 +126,15 @@ const TaskModal = (props) => {
 
 TaskModal.propTypes = {
   task: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    title: PropTypes.string,
     description: PropTypes.string,
-    isDone: PropTypes.bool.isRequired,
+    isDone: PropTypes.bool,
   }),
   open: PropTypes.bool,
   titleText: PropTypes.any,
   formId: PropTypes.any,
-  onClose:PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 };
 
 export default TaskModal;
