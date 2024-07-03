@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { CONSTANTS } from '../../constants/Constants';
 
 const api = axios.create({
-  baseURL: 'https://localhost:7278', // Adjust the URL as needed
+  baseURL: CONSTANTS.BASE_URL, 
 });
 
 export const axiosGetTasks = () => api.get('/Tasks');

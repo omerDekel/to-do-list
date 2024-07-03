@@ -1,19 +1,14 @@
-import { Box, Button, List, ListItem, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import classes from "./App.module.css";
-import TaskItem from "./components/TaskItem/TaskItem";
 import { useEffect, useState } from "react";
 import { CONSTANTS } from "./constants/Constants";
 import { useDispatch, useSelector } from "react-redux";
 import TaskModal from "./components/Modals/TaskModal/TaskModal";
 import AddIcon from "@mui/icons-material/Add";
 import { TASK_MODAL_FORMS } from "./enums/ClientEnums";
-import {
-  deleteTask,
-  fetchTasks,
-  updateTask,
-} from "./managers/redux/slices/tasksSlice";
+import { fetchTasks } from "./managers/redux/slices/tasksSlice";
 import { TaskEntity } from "./entities/TaskEntity";
-import { format } from "date-fns";
+import TaskList from "./components/TaskList/TaskList";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -35,38 +30,9 @@ const App = () => {
     }
   }, [selectedTask, tasks]);
 
-  const getCurrentDate = () => {
-    const curDate = new Date();
-    const formattedcurDate = format(curDate, "yyyy-MM-dd'T'HH:mm:ss");
-    return formattedcurDate;
-  };
-
-  const deleteTodo = (id) => {
-    dispatch(deleteTask(id));
-  };
-
   const onClickTask = (task) => {
     setSelectedTask(task);
     setOpenEditModal(true);
-  };
-
-  const toggleTodoCompletion = (id) => {
-    let index = tasks?.findIndex((task) => task.id === id);
-    let taskToToggleCompeletion = tasks[index];
-
-    let togeledCompeletionTask = new TaskEntity(
-      taskToToggleCompeletion.id,
-      taskToToggleCompeletion.title,
-      taskToToggleCompeletion.description,
-      !taskToToggleCompeletion.isDone,
-      taskToToggleCompeletion.finishDate
-    );
-    // if task is done update the finish date
-    if (togeledCompeletionTask.isDone) {
-      togeledCompeletionTask.finishDate = getCurrentDate();
-    }
-    console.log(togeledCompeletionTask);
-    dispatch(updateTask(togeledCompeletionTask));
   };
 
   if (loading) {
@@ -79,7 +45,7 @@ const App = () => {
         <Typography>
           {CONSTANTS.STRINGS.ERROR_TITLE}: {error}
         </Typography>
-        <Button onClick={() => dispatch(fetchTasks())}>Retry</Button>
+        <Button onClick={() => dispatch(fetchTasks())}>{CONSTANTS.STRINGS.RETRY_TITLE}</Button>
       </Box>
     );
   }
@@ -114,20 +80,7 @@ const App = () => {
         </Button>
       </Box>
       <Box className={classes.ToDoList}>
-        <List
-          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-        >
-          {tasks?.map((curTask, i) => (
-            <ListItem key={i}>
-              <TaskItem
-                task={curTask}
-                onClickTask={() => onClickTask(curTask)}
-                deleteTask={deleteTodo}
-                toggleTodoCompletion={toggleTodoCompletion}
-              ></TaskItem>
-            </ListItem>
-          ))}
-        </List>
+        <TaskList onClickTask={onClickTask} tasks={tasks}></TaskList>
       </Box>
     </Box>
   );
