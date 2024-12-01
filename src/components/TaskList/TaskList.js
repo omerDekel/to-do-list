@@ -28,6 +28,8 @@ const TaskList = (props) => {
     // if task is done update the finish date
     if (togeledCompeletionTask.isDone) {
       togeledCompeletionTask.finishDate = getCurrentDate();
+    }else{
+      togeledCompeletionTask.finishDate = null;
     }
     dispatch(updateTask(togeledCompeletionTask));
   };
