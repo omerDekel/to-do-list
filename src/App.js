@@ -66,19 +66,20 @@ const App = () => {
         onClose={() => setOpenAddModal(false)}
       ></TaskModal>
       <Box className={classes.AppHeader}>
+        <Box className={classes.AddNewToDoInput}>
+          <Button
+            variant={"outlined"}
+            onClick={() => setOpenAddModal(true)}
+            startIcon={<AddIcon />}
+          >
+            {CONSTANTS.STRINGS.ADD_NEW_TO_DO_LABEL}
+          </Button>
+        </Box>
         <Typography variant="h1" component="h2" fontFamily="cursive">
           {CONSTANTS.STRINGS.MAIN_HEADER}
         </Typography>
       </Box>
-      <Box className={classes.AddNewToDoInput}>
-        <Button
-          variant={"outlined"}
-          onClick={() => setOpenAddModal(true)}
-          startIcon={<AddIcon />}
-        >
-          {CONSTANTS.STRINGS.ADD_NEW_TO_DO_LABEL}
-        </Button>
-      </Box>
+
       <Box className={classes.ToDoList}>
         <TaskList onClickTask={onClickTask} tasks={tasks}></TaskList>
       </Box>
