@@ -25,13 +25,10 @@ const TaskModal = (props) => {
   const [titleError, setTitleError] = useState("");
 
   useEffect(() => {
-    if (props.task?.title) {
-      setTitle(props.task.title);
-    }
-    if (props.task?.description) {
-      setDescription(props.task.description);
-    }
-  }, [props]);
+    const { title: taskTitle, description: taskDescription } = props.task || {};
+    setTitle(taskTitle || "");
+    setDescription(taskDescription || "");
+  }, [props.task]);
 
   const dispatch = useDispatch();
   const validateTask = () => {
