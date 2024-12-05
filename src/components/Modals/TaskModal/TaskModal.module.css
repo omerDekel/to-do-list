@@ -1,6 +1,7 @@
 .ModalContainer {
-    width: 99%;
-    height: 450px;
+    height: 80vh;
+    max-height: 90vh;
+    overflow-y: auto;
     display: flex;
     overflow: hidden;
     flex-wrap: nowrap;
@@ -8,39 +9,17 @@
     flex-direction: column;
 }
 
-.ModalHeaderContainer {
-    width: 100%;
-    height:fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-
-.EditContentModalHeaderTextContainer {
-    display: flex;
-    justify-content: center;
-    font-size: 18px !important;
-}
-
 .ModalContentContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding-bottom: 0px !important;
+    /* padding-bottom: 0px !important;
     padding-left: 20px !important;
-    padding-right: 20px !important;
+    padding-right: 20px !important; */
     align-content: stretch;
     align-items: flex-start;
 }
 
-.ModalContentTitleContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
 
 .ModalActionsContainer {
     width: 100%;
